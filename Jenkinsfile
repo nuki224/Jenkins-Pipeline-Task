@@ -2,10 +2,21 @@ pipeline {
   agent any
   stages {
     stage('Running Project') {
-      steps {
-        sh '''mvn --version
+      parallel {
+        stage('Running Project') {
+          steps {
+            sh '''mvn --version
 git --version
 java --version'''
+          }
+        }
+
+        stage('') {
+          steps {
+            fileExists 'pom.xml'
+          }
+        }
+
       }
     }
 
